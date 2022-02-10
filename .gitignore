@@ -1,0 +1,7 @@
+__pycache__
+.project
+.pydevproject
+.settings/
+coverage.xml
+nosetests.xml
+.coverage
