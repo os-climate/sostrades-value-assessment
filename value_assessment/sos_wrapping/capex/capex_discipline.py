@@ -33,6 +33,20 @@ import plotly.graph_objects as go
 
 class CAPEXDiscipline(SoSDiscipline):
 
+    # ontology information
+    _ontology_data = {
+        'label': 'Value Assessment CapEx Model',
+        'type': 'Research',
+        'source': 'SoSTrades Project',
+        'validated': '',
+        'validated_by': 'SoSTrades Project',
+        'last_modification_date': '',
+        'category': '',
+        'definition': '',
+        'icon': 'fas fa-money-bill-alt fa-fw',
+        'version': '',
+    }
+
     _maturity = 'Research'
 
     DESC_IN = {

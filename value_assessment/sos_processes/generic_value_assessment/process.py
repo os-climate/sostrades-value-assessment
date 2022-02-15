@@ -21,6 +21,14 @@ import pandas as pd
 
 
 class ProcessBuilder(BaseProcessBuilder):
+
+    # ontology information
+    _ontology_data = {
+        'label': 'Generic Value Assessment Process',
+        'description': '',
+        'category': '',
+        'version': '',
+    }
     def get_builders(self):
 
         study_name = self.ee.study_name

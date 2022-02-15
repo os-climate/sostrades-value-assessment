@@ -1,0 +1,32 @@
+id,label,unit,definition,definitionSource,ACLTag
+WACC_actor,Manufacturer WACC,%,Manufacturer WACC (Weighted Average Cost of Capital) is the rate that a company is expected to pay on average to all its security holders to finance its assets,,CC - Costs
+after_sales_opex_unit,After Sales OpEx Unit,%,Percentage of OpEx unit to create an after sales OpEx ,,
+cache_file_path,Cache File Path,,Path for the cache file id the option cache type is set to Hdf5Cache,,
+cache_type,Cache Type,,"Type of cache in GEMS (could be simple, full memory or stored in a Hdf5 file",,
+capex,CapEx,€/year,"Capital expenditure or capital expense (CapEx) is the money an organization or corporate entity spends to buy, maintain, or improve its fixed assets, such as buildings, vehicles, equipment, or land. It is considered a capital expenditure when the asset is newly purchased or when money is used towards extending the useful life of an existing asset, such as repairing the roof.",,
+capex_distrib_categories,CapEx Distribution per Category,%,"Distribution of the CapEx for each Category from 6 years before launch year to 3 years after launch year, last element is the percentage of CapEx applied from launch_year+4 to final year of the study",,
+capex_input_values,CapEx Values,€,Global Capital Expenditure Values are given per Component. Each Component have a Distribution Category and a Contingency percentage. ,,
+capex_multiplier,CapEx multiplier,%,Multiplier used to reduce with a percentage the total input of CapEx. Usefull when doing sensibility analysis or grid search,,
+cashflow_infos,Cashflow Summary,€,,,
+cashflow_infos_gather,Gather of Cashflow Summary,€,,,
+cashflow_product,Detailed Cashflow,€,"Dataframe of diverse cashflows for theproduct (without services) per year including the cash-in, cash-out, cumulative cashflow, discounted cashflow, cumulative discounted cashflow",,CC - Costs
+cashflow_product_gather,Gather of Detailed Cashflow,€,,,
+escalation_capex_df,CapEx escalation rate parameters,,Yearly escalation rate for CapEx and year of the economical conditions,,
+escalation_opex_df,OpEx escalation rate parameters,,Yearly escalation rate for OpEx and year of the economical conditions,,
+hypothesis_summary,Hypothesis Summary,€,summary of all input hypothesis,,
+hypothesis_summary_gather,Hypothesis Summary Gather,€,,,
+launch_year,Launch Year,year,The launch year represent the year of introduction of a new product for sale for the first time ,,
+learning_curve_product_dict,Learning Curve parameters,,Dictionnary containing percentage of Make for OpEx on which the learning curve parameters are applied. ,,
+linearization_mode,Linearization Mode,,,,
+nb_years_capex_amort,Number of years for CapEx Amortization,years,"For each CapEx Distribution Category, a number of amortization years can be given.",,
+opex,OpEx Unitary,€/year,OpEx per product per year,,
+opex_advanced_payment_percentage,OpEx advanced payment percentage,%,OpEx percentage of the product to pay in advance for year before delivery and two year before delivery,,
+opex_by_category,OpEx by category,€,"Operating Expenditure (OpEx) An operating expense is an expense a business incurs through its normal business operations. Operating expenses include rent, equipment, inventory costs, marketing, payroll, insurance, step costs, and funds allocated for research and development.",,
+opex_multiplier,OpEx multiplier,%,Multiplier used to reduce with a percentage the total input o OpEx. Usefull when doing sensibility analysis or grid search,,
+opex_total,OpEx Total,€,OpEx for all product per year,,
+pnl_product,Detailed P&L,€,,,
+pnl_product_gather,Gather of Detailed P&L,€,,,
+product_sale_price,Product price ,€,Product price per year,,
+product_sales_df,Product Sales per year,#product/year,Number of product sold each year,,
+year_end,Ending year,year,Final year of the study,,D - Nominal property
+year_start,Starting year,year,Initial year of the study,,D - Nominal property

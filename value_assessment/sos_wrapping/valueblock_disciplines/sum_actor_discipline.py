@@ -30,6 +30,20 @@ from copy import deepcopy
 class SumValueAssessmentActorValueBlockDiscipline(SumValueBlockDiscipline):
     """
     """
+
+    # ontology information
+    _ontology_data = {
+        'label': 'Value Assessment Value Block Sum Actor Model',
+        'type': 'Research',
+        'source': 'SoSTrades Project',
+        'validated': '',
+        'validated_by': 'SoSTrades Project',
+        'last_modification_date': '',
+        'category': '',
+        'definition': '',
+        'icon': 'fas fa-calculator fa-fw',
+        'version': '',
+    }
     _maturity = 'Research'
 
     def init_execution(self):

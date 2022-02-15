@@ -32,6 +32,20 @@ class ManufacturerValueBlockDiscipline(ValueBlockDiscipline):
     """
     Sales value block that can be used either at product level or subcomponent level
     """
+
+    # ontology information
+    _ontology_data = {
+        'label': 'Value Assessment Manufacturer Value Block Model',
+        'type': 'Research',
+        'source': 'SoSTrades Project',
+        'validated': '',
+        'validated_by': 'SoSTrades Project',
+        'last_modification_date': '',
+        'category': '',
+        'definition': '',
+        'icon': 'fas fa-file-invoice-dollar fa-fw',
+        'version': '',
+    }
     _maturity = 'Research'
 
     DESC_IN = {
