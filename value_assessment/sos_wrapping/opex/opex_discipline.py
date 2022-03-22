@@ -20,9 +20,12 @@ mode: python; py-indent-offset: 4; tab-width: 8; coding: utf-8
 
 from sos_trades_core.execution_engine.sos_discipline import SoSDiscipline
 from sos_trades_core.tools.post_processing.charts.chart_filter import ChartFilter
-from sos_trades_core.tools.post_processing.plotly_native_charts.instantiated_plotly_native_chart import \
-    InstantiatedPlotlyNativeChart
-from sos_trades_core.tools.post_processing.post_processing_tools import format_currency_legend
+from sos_trades_core.tools.post_processing.plotly_native_charts.instantiated_plotly_native_chart import (
+    InstantiatedPlotlyNativeChart,
+)
+from sos_trades_core.tools.post_processing.post_processing_tools import (
+    format_currency_legend,
+)
 from value_assessment.core.opex import Opex
 import plotly.graph_objects as go
 import pandas as pd
@@ -48,31 +51,18 @@ class OPEXDiscipline(SoSDiscipline):
 
     _maturity = 'Research'
 
-    # otology metadata for the SoSDiscipline
-    _metadata = {
-        'label': 'Values Assessment OpEx Model',
-        'type': 'Research',
-        'source': 'SoSTrades Project',
-        'validated': 'YES',
-        'validated_by': 'SoSTrades',
-        'last_modification_date': '20/01/2022',
-        'category': 'Accounting',
-        'definition': 'Model to calculate simple generic Opex with After Sales',
-        'icon': 'fas fa-money-bill-alt fa-fw',
-    }
-
     DESC_IN = {
         'launch_year': {
             'default': 2025,
             'type': 'int',
             'unit': 'year',
             'visibility': SoSDiscipline.SHARED_VISIBILITY,
-            'namespace': 'ns_data_product'
+            'namespace': 'ns_data_product',
         },
         'escalation_opex_df': {
             'type': 'dataframe',
             'unit': '',
-            'visibility':  SoSDiscipline.SHARED_VISIBILITY,
+            'visibility': SoSDiscipline.SHARED_VISIBILITY,
             'dataframe_descriptor': {
                 'year_economical_conditions': ('int', None, True),
                 'yearly_escalation_rate': ('float', [0.0, 100.0], True),
@@ -80,10 +70,8 @@ class OPEXDiscipline(SoSDiscipline):
             'dataframe_edition_locked': False,
             'namespace': 'ns_opex',
             'default': pd.DataFrame(
-                {
-                    'year_economical_conditions': [2010],
-                    'yearly_escalation_rate': [0.]
-                }),
+                {'year_economical_conditions': [2010], 'yearly_escalation_rate': [0.0]}
+            ),
         },
         'year_end': {
             'default': 2050,
@@ -91,7 +79,7 @@ class OPEXDiscipline(SoSDiscipline):
             'unit': 'year',
             'range': [1950, 2100],
             'visibility': SoSDiscipline.SHARED_VISIBILITY,
-            'namespace': 'ns_public'
+            'namespace': 'ns_public',
         },
         'year_start': {
             'default': 2020,
@@ -99,22 +87,21 @@ class OPEXDiscipline(SoSDiscipline):
             'unit': 'year',
             'range': [1950, 2100],
             'visibility': SoSDiscipline.SHARED_VISIBILITY,
-            'namespace': 'ns_public'
+            'namespace': 'ns_public',
         },
         'product_sales_df': {
             'type': 'dataframe',
             'unit': '#product/year',
-            'visibility':  SoSDiscipline.SHARED_VISIBILITY,
+            'visibility': SoSDiscipline.SHARED_VISIBILITY,
             'namespace': 'ns_product',
             'default': pd.DataFrame(
-                {
-                    'years': np.arange(2025, 2051),
-                    'quantity': [100.0] * 26
-                }),
+                {'years': np.arange(2025, 2051), 'quantity': [100.0] * 26}
+            ),
             'dataframe_descriptor': {
                 'years': ('int', None, True),
-                'quantity': ('float', None, True)},
-            'dataframe_edition_locked': False
+                'quantity': ('float', None, True),
+            },
+            'dataframe_edition_locked': False,
         },
         'opex_multiplier': {
             'type': 'float',
@@ -122,49 +109,61 @@ class OPEXDiscipline(SoSDiscipline):
             'unit': '%',
             'visibility': SoSDiscipline.SHARED_VISIBILITY,
             'namespace': 'ns_opex_input_details',
-            'user_level': 2
+            'user_level': 2,
         },
         'opex_by_category': {
             'type': 'dataframe',
             'unit': '€',
             'visibility': SoSDiscipline.SHARED_VISIBILITY,
             'namespace': 'ns_opex_input_details',
-            'default': pd.DataFrame(
-                {
-                    'components': ['component1'],
-                    'opex': [100.0]
-                }),
+            'default': pd.DataFrame({'components': ['component1'], 'opex': [100.0]}),
             'dataframe_descriptor': {
                 'components': ('string', None, True),
-                'opex': ('float', None, True)},
-            'dataframe_edition_locked': False
+                'opex': ('float', None, True),
+            },
+            'dataframe_edition_locked': False,
         },
         'learning_curve_product_dict': {
-            'default': {'percentage_make': 0., 'learning_curve_coefficient': [0.8], 'until_product_rank': [50.], },
+            'default': {
+                'percentage_make': 0.0,
+                'learning_curve_coefficient': [0.8],
+                'until_product_rank': [50.0],
+            },
             'type': 'dict',
             'unit': '',
             'visibility': SoSDiscipline.SHARED_VISIBILITY,
             'namespace': 'ns_opex_input_details',
             'dataframe_descriptor': {
-                'variable':  ('string',  None, True),
-                'value': ('float',  None, True),
+                'variable': ('string', None, True),
+                'value': ('float', None, True),
             },
             'dataframe_edition_locked': False,
-            'user_level': 2
+            'user_level': 2,
         },
         'after_sales_opex_unit': {
-            'default': {'launch_year': 8., 'launch_year+1': 7., 'launch_year+2': 6., 'launch_year+3': 5.5,
-                        'launch_year+4': 5., 'launch_year+5': 5., 'launch_year+6': 5., 'launch_year+7': 5., 'launch_year+8': 5., 'launch_year+9': 5., 'launch_year+10 onwards': 5.},
+            'default': {
+                'launch_year': 8.0,
+                'launch_year+1': 7.0,
+                'launch_year+2': 6.0,
+                'launch_year+3': 5.5,
+                'launch_year+4': 5.0,
+                'launch_year+5': 5.0,
+                'launch_year+6': 5.0,
+                'launch_year+7': 5.0,
+                'launch_year+8': 5.0,
+                'launch_year+9': 5.0,
+                'launch_year+10 onwards': 5.0,
+            },
             'type': 'dict',
             'unit': '%',
             'visibility': SoSDiscipline.SHARED_VISIBILITY,
             'namespace': 'ns_opex_input_details',
             'dataframe_descriptor': {
                 'variable': ('string', None, False),
-                'value': ('float', None, True)
+                'value': ('float', None, True),
             },
             'dataframe_edition_locked': False,
-            'user_level': 2
+            'user_level': 2,
         },
     }
 
@@ -189,26 +188,37 @@ class OPEXDiscipline(SoSDiscipline):
 
         if 'year_economical_conditions' in inputs_dict['escalation_opex_df']:
             year_economical_conditions = int(
-                inputs_dict['escalation_opex_df'].iloc[0]['year_economical_conditions'])
+                inputs_dict['escalation_opex_df'].iloc[0]['year_economical_conditions']
+            )
         else:
-            year_economical_conditions = 2010.
+            year_economical_conditions = 2010.0
             print(
-                f'Column year_economical_conditions is not in dataframe escalation_opex_df')
+                f'Column year_economical_conditions is not in dataframe escalation_opex_df'
+            )
         if 'yearly_escalation_rate' in inputs_dict['escalation_opex_df']:
-            yearly_escalation_rate = inputs_dict['escalation_opex_df'].iloc[0]['yearly_escalation_rate'] / 100.
+            yearly_escalation_rate = (
+                inputs_dict['escalation_opex_df'].iloc[0]['yearly_escalation_rate']
+                / 100.0
+            )
         else:
-            yearly_escalation_rate = 0.
+            yearly_escalation_rate = 0.0
             print(
-                f'Column yearly_escalation_rate is not in dataframe escalation_opex_df')
+                f'Column yearly_escalation_rate is not in dataframe escalation_opex_df'
+            )
 
         learning_curve_product_dict = deepcopy(
-            inputs_dict['learning_curve_product_dict'])
-        if not isinstance(learning_curve_product_dict['learning_curve_coefficient'], list):
+            inputs_dict['learning_curve_product_dict']
+        )
+        if not isinstance(
+            learning_curve_product_dict['learning_curve_coefficient'], list
+        ):
             learning_curve_product_dict['learning_curve_coefficient'] = [
-                learning_curve_product_dict['learning_curve_coefficient']]
+                learning_curve_product_dict['learning_curve_coefficient']
+            ]
         if not isinstance(learning_curve_product_dict['until_product_rank'], list):
             learning_curve_product_dict['until_product_rank'] = [
-                learning_curve_product_dict['until_product_rank']]
+                learning_curve_product_dict['until_product_rank']
+            ]
 
         self.opex_model = Opex(
             escalation_rate=yearly_escalation_rate,
@@ -216,30 +226,38 @@ class OPEXDiscipline(SoSDiscipline):
             launch_year=inputs_dict['launch_year'],
             year_start=inputs_dict['year_start'],
             year_end=inputs_dict['year_end'],
-            learning_curve_dict=learning_curve_product_dict
+            learning_curve_dict=learning_curve_product_dict,
         )
 
-        after_sales_opex_unit = np.array(
-            list(inputs_dict['after_sales_opex_unit'].values())) / 100.0
+        after_sales_opex_unit = (
+            np.array(list(inputs_dict['after_sales_opex_unit'].values())) / 100.0
+        )
 
         opex_df = self.opex_model.compute_opex_by_category(
             opex_by_category=inputs_dict['opex_by_category'],
             sales=inputs_dict['product_sales_df'],
             opex_multiplier=inputs_dict['opex_multiplier'] / 100.0,
-            distrib_after_sales_opex_unit=after_sales_opex_unit)
+            distrib_after_sales_opex_unit=after_sales_opex_unit,
+        )
 
         # opex for all products
         opex_total = opex_df.drop(columns=['learning_curve_coef'])
 
-        list_col = list(opex_total.drop(
-            columns=['years', 'quantity', 'cumulative_quantity']).columns)
+        list_col = list(
+            opex_total.drop(
+                columns=['years', 'quantity', 'cumulative_quantity']
+            ).columns
+        )
 
         opex_total[list_col] = opex_total[list_col].multiply(
-            opex_total["quantity"], axis="index")
+            opex_total["quantity"], axis="index"
+        )
 
         # -- Store computed data
         dict_values = {
-            'opex': opex_df.drop(columns=['quantity', 'cumulative_quantity', 'learning_curve_coef']),
+            'opex': opex_df.drop(
+                columns=['quantity', 'cumulative_quantity', 'learning_curve_coef']
+            ),
             'opex_total': opex_total,
         }
         self.store_sos_outputs_values(dict_values)
@@ -256,8 +274,7 @@ class OPEXDiscipline(SoSDiscipline):
             'Learning Curve effect',
         ]
 
-        chart_filters.append(ChartFilter(
-            'Charts', chart_list, chart_list, 'charts'))
+        chart_filters.append(ChartFilter('Charts', chart_list, chart_list, 'charts'))
 
         return chart_filters
 
@@ -278,7 +295,10 @@ class OPEXDiscipline(SoSDiscipline):
         opex_unit = self.get_sosdisc_outputs('opex')
         opex_total = self.get_sosdisc_outputs('opex_total')
         year_economical_conditions = int(
-            self.get_sosdisc_inputs('escalation_opex_df').iloc[0]['year_economical_conditions'])
+            self.get_sosdisc_inputs('escalation_opex_df').iloc[0][
+                'year_economical_conditions'
+            ]
+        )
         opex_cat_EC = deepcopy(self.get_sosdisc_inputs('opex_by_category'))
         ratio_opex = self.get_sosdisc_inputs('opex_multiplier') / 100.0
         opex_cat_EC['opex'] = opex_cat_EC['opex'] * ratio_opex
@@ -295,10 +315,7 @@ class OPEXDiscipline(SoSDiscipline):
 
             fig.add_trace(
                 go.Bar(
-                    x=years.tolist(),
-                    y=opex_values.tolist(),
-                    visible=True,
-                    name='OpEx'
+                    x=years.tolist(), y=opex_values.tolist(), visible=True, name='OpEx'
                 )
             )
 
@@ -307,7 +324,7 @@ class OPEXDiscipline(SoSDiscipline):
                     x=years.tolist(),
                     y=after_sales_values.tolist(),
                     visible=True,
-                    name='After Sales'
+                    name='After Sales',
                 )
             )
 
@@ -318,9 +335,7 @@ class OPEXDiscipline(SoSDiscipline):
                     visible=True,
                 ),
                 yaxis=dict(
-                    title='Operating Expenditure',
-                    ticksuffix='€',
-                    automargin=True
+                    title='Operating Expenditure', ticksuffix='€', automargin=True
                 ),
                 showlegend=True,
                 barmode='stack',
@@ -329,17 +344,30 @@ class OPEXDiscipline(SoSDiscipline):
 
             annotation_upper_left = {
                 'Year of EC ': year_economical_conditions,
-                'OpEx in ' + str(year_economical_conditions): f'{format_currency_legend(round(opex_EC, 2), "€")}'
+                'OpEx in '
+                + str(
+                    year_economical_conditions
+                ): f'{format_currency_legend(round(opex_EC, 2), "€")}',
             }
 
             # Create native plotly chart
             chart_name = f'Operating Expenditure per product'
             new_chart = InstantiatedPlotlyNativeChart(
-                fig=fig, chart_name=chart_name, default_legend=False, with_default_annotations=False)
+                fig=fig,
+                chart_name=chart_name,
+                default_legend=False,
+                with_default_annotations=False,
+            )
             new_chart.add_annotation(
-                new_chart.ANNOTATION_UPPER_LEFT, 'Year of EC:', f'{year_economical_conditions}')
-            new_chart.add_annotation(new_chart.ANNOTATION_UPPER_LEFT,
-                                     f'OpEx in {year_economical_conditions}:', f'{format_currency_legend(round(opex_EC, 2), "€")}')
+                new_chart.ANNOTATION_UPPER_LEFT,
+                'Year of EC:',
+                f'{year_economical_conditions}',
+            )
+            new_chart.add_annotation(
+                new_chart.ANNOTATION_UPPER_LEFT,
+                f'OpEx in {year_economical_conditions}:',
+                f'{format_currency_legend(round(opex_EC, 2), "€")}',
+            )
 
             if new_chart:
                 instanciated_charts.append(new_chart)
@@ -351,11 +379,13 @@ class OPEXDiscipline(SoSDiscipline):
 
             # sort
             sorted_opex_by_category = opex_cat_EC.sort_values(
-                by=['opex'], axis=0, ascending=False, inplace=False)
+                by=['opex'], axis=0, ascending=False, inplace=False
+            )
             str_total = f'Opex in {str(year_economical_conditions)}: {format_currency_legend(round(opex_EC, 2), "€")}'
             for component in sorted_opex_by_category['components']:
-                opex_values = sorted_opex_by_category['opex'].loc[sorted_opex_by_category['components']
-                                                                  == component]
+                opex_values = sorted_opex_by_category['opex'].loc[
+                    sorted_opex_by_category['components'] == component
+                ]
                 # category bar
                 fig.add_trace(
                     go.Bar(
@@ -366,7 +396,7 @@ class OPEXDiscipline(SoSDiscipline):
                         textposition='inside',
                         xaxis='x',
                         yaxis='y',
-                        visible=True
+                        visible=True,
                     )
                 )
 
@@ -380,37 +410,35 @@ class OPEXDiscipline(SoSDiscipline):
                 yaxis=dict(
                     title='Operating Expenditure',
                     ticksuffix='€',
-                    titlefont=dict(
-                        color="#1f77b4"
-                    ),
-                    tickfont=dict(
-                        color="#1f77b4"
-                    ),
-                    automargin=True
+                    titlefont=dict(color="#1f77b4"),
+                    tickfont=dict(color="#1f77b4"),
+                    automargin=True,
                 ),
                 showlegend=False,
                 barmode='stack',
                 autosize=True,
-                annotations=[dict(
-                    x=0,
-                    y=sum(sorted_opex_by_category['opex']),
-                    text=str_total,
-                    xanchor='auto',
-                    yanchor='bottom',
-                    showarrow=False,
-                    font=dict(
-                        family="Arial",
-                        size=16,
-                        color="#000000"
-                    ),
-                )],
-                margin=dict(l=0, b=0)
+                annotations=[
+                    dict(
+                        x=0,
+                        y=sum(sorted_opex_by_category['opex']),
+                        text=str_total,
+                        xanchor='auto',
+                        yanchor='bottom',
+                        showarrow=False,
+                        font=dict(family="Arial", size=16, color="#000000"),
+                    )
+                ],
+                margin=dict(l=0, b=0),
             )
 
             # Create native plotly chart
             chart_name = f'Operating Expenditure by Component'
             new_chart = InstantiatedPlotlyNativeChart(
-                fig=fig, chart_name=chart_name, default_legend=False, with_default_annotations=False)
+                fig=fig,
+                chart_name=chart_name,
+                default_legend=False,
+                with_default_annotations=False,
+            )
             if new_chart:
                 instanciated_charts.append(new_chart)
 
@@ -446,7 +474,7 @@ class OPEXDiscipline(SoSDiscipline):
                     x=years.tolist(),
                     y=after_sales_values.tolist(),
                     visible=True,
-                    name='After Sales'
+                    name='After Sales',
                 )
             )
 
@@ -457,9 +485,7 @@ class OPEXDiscipline(SoSDiscipline):
                     visible=True,
                 ),
                 yaxis=dict(
-                    title='Operating Expenditure',
-                    ticksuffix='€',
-                    automargin=True
+                    title='Operating Expenditure', ticksuffix='€', automargin=True
                 ),
                 showlegend=True,
                 barmode='stack',
@@ -469,7 +495,11 @@ class OPEXDiscipline(SoSDiscipline):
             # Create native plotly chart
             chart_name = f'Operating Expenditure breakdown per product'
             new_chart = InstantiatedPlotlyNativeChart(
-                fig=fig, chart_name=chart_name, default_legend=False, with_default_annotations=False)
+                fig=fig,
+                chart_name=chart_name,
+                default_legend=False,
+                with_default_annotations=False,
+            )
 
             if new_chart:
                 instanciated_charts.append(new_chart)
@@ -488,7 +518,7 @@ class OPEXDiscipline(SoSDiscipline):
                     x=years.tolist(),
                     y=opex_values.tolist(),
                     visible=True,
-                    name='Total OpEx'
+                    name='Total OpEx',
                 )
             )
             fig.add_trace(
@@ -496,7 +526,7 @@ class OPEXDiscipline(SoSDiscipline):
                     x=years.tolist(),
                     y=after_sales_values.tolist(),
                     visible=True,
-                    name='Total After Sales'
+                    name='Total After Sales',
                 )
             )
 
@@ -507,9 +537,7 @@ class OPEXDiscipline(SoSDiscipline):
                     visible=True,
                 ),
                 yaxis=dict(
-                    title='Operating Expenditure',
-                    ticksuffix='€',
-                    automargin=True
+                    title='Operating Expenditure', ticksuffix='€', automargin=True
                 ),
                 showlegend=True,
                 barmode='stack',
@@ -519,7 +547,11 @@ class OPEXDiscipline(SoSDiscipline):
             # Create native plotly chart
             chart_name = f'Total Operating Expenditure (all products)'
             new_chart = InstantiatedPlotlyNativeChart(
-                fig=fig, chart_name=chart_name, default_legend=False, with_default_annotations=False)
+                fig=fig,
+                chart_name=chart_name,
+                default_legend=False,
+                with_default_annotations=False,
+            )
 
             if new_chart:
                 instanciated_charts.append(new_chart)
@@ -559,9 +591,7 @@ class OPEXDiscipline(SoSDiscipline):
                     visible=True,
                 ),
                 yaxis=dict(
-                    title='Operating Expenditure',
-                    ticksuffix='€',
-                    automargin=True
+                    title='Operating Expenditure', ticksuffix='€', automargin=True
                 ),
                 showlegend=True,
                 barmode='stack',
@@ -571,7 +601,11 @@ class OPEXDiscipline(SoSDiscipline):
             # Create native plotly chart
             chart_name = f'Learning Curve effect'
             new_chart = InstantiatedPlotlyNativeChart(
-                fig=fig, chart_name=chart_name, default_legend=False, with_default_annotations=False)
+                fig=fig,
+                chart_name=chart_name,
+                default_legend=False,
+                with_default_annotations=False,
+            )
 
             if new_chart:
                 instanciated_charts.append(new_chart)
