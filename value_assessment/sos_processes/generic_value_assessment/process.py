@@ -29,6 +29,7 @@ class ProcessBuilder(BaseProcessBuilder):
         'category': '',
         'version': '',
     }
+
     def get_builders(self):
 
         study_name = self.ee.study_name
@@ -53,35 +54,39 @@ class ProcessBuilder(BaseProcessBuilder):
         }
 
         # scatter on Product list
-        product_list_map_dict = {'input_name': 'Product_list',
-                                 'input_type': 'string_list',
-                                 'input_ns': 'ns_barrier',
-                                 'output_name': 'Product_name',
-                                 'scatter_ns': 'ns_product',
-                                 'gather_ns_in': 'ns_barrier',
-                                 'ns_to_update': [
-                                     'ns_data_product',
-                                     'ns_opex_input_details',
-                                     'ns_opex_results',
-                                     'ns_capex_results',
-                                     'ns_va_product',
-                                     'ns_capex_input_details',
-                                     'ns_product'
-                                 ]}
+        product_list_map_dict = {
+            'input_name': 'Product_list',
+            'input_type': 'string_list',
+            'input_ns': 'ns_barrier',
+            'output_name': 'Product_name',
+            'scatter_ns': 'ns_product',
+            'gather_ns_in': 'ns_barrier',
+            'ns_to_update': [
+                'ns_data_product',
+                'ns_opex_input_details',
+                'ns_opex_results',
+                'ns_capex_results',
+                'ns_va_product',
+                'ns_capex_input_details',
+                'ns_product',
+            ],
+        }
         # add product list map
-        self.ee.smaps_manager.add_build_map(
-            'Product_list', product_list_map_dict)
+        self.ee.smaps_manager.add_build_map('Product_list', product_list_map_dict)
 
         mods_dict = {
             'OpEx': 'value_assessment.sos_wrapping.opex.opex_discipline.OPEXDiscipline',
-            'CapEx': 'value_assessment.sos_wrapping.capex.capex_discipline.CAPEXDiscipline'}
+            'CapEx': 'value_assessment.sos_wrapping.capex.capex_discipline.CAPEXDiscipline',
+        }
 
-        opex_capex_builder_list = self.create_builder_list(
-            mods_dict, ns_dict=ns_dict)
+        opex_capex_builder_list = self.create_builder_list(mods_dict, ns_dict=ns_dict)
 
         # create scatter on cost category list
-        opex_capex_scatter_builder = self.ee.factory.create_multi_scatter_builder_from_list(
-            'Product_list', opex_capex_builder_list, autogather=True)
+        opex_capex_scatter_builder = (
+            self.ee.factory.create_multi_scatter_builder_from_list(
+                'Product_list', opex_capex_builder_list, autogather=True
+            )
+        )
 
         builder_list.append(opex_capex_scatter_builder)
 
@@ -89,14 +94,25 @@ class ProcessBuilder(BaseProcessBuilder):
         archi_name = 'Business_Manufacturer'
 
         architecture_df = pd.DataFrame(
-            {'Parent': [None, archi_name],
-             'Current': [archi_name, 'Manufacturer'],
-             'Type': ['SumValueAssessmentActorValueBlockDiscipline', 'SumValueAssessmentValueBlockDiscipline'],
-             'Action': [('standard'), ('scatter', 'Product_list', 'ManufacturerValueBlockDiscipline')],
-             'Activation': [True, False]})
+            {
+                'Parent': [None, archi_name],
+                'Current': [archi_name, 'Manufacturer'],
+                'Type': [
+                    'SumValueAssessmentActorValueBlockDiscipline',
+                    'SumValueAssessmentValueBlockDiscipline',
+                ],
+                'Action': [
+                    ('standard'),
+                    ('scatter', 'Product_list', 'ManufacturerValueBlockDiscipline'),
+                ],
+                'Activation': [True, False],
+            }
+        )
 
+        vb_folder_list = ['value_assessment.sos_wrapping.valueblock_disciplines']
         vb_architecture_builder = self.ee.factory.create_architecture_builder(
-            archi_name, architecture_df)
+            archi_name, architecture_df, vb_folder_list
+        )
 
         builder_list.append(vb_architecture_builder)
 
