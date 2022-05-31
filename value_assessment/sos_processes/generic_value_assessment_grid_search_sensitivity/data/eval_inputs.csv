@@ -1,0 +1,6 @@
+selected_input,shortest_name,full_name
+false,Manufacturer WACC,GridSearch.WACC_actor
+true,OpEx multiplier Tomato sauce,GridSearch.OpEx.Tomato sauce.opex_multiplier
+false,OpEx multiplier Ratatouille,GridSearch.OpEx.Ratatouille.opex_multiplier
+true,CapEx multiplier Tomato sauce,GridSearch.CapEx.Tomato sauce.capex_multiplier
+false,CapEx multiplier Ratatouille,GridSearch.CapEx.Ratatouille.capex_multiplier

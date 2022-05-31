@@ -1,0 +1,3 @@
+shortest_name,lower_bnd,upper_bnd,nb_points,full_name
+OpEx multiplier Tomato sauce,0.0,100.0,3,GridSearch.OpEx.Tomato sauce.opex_multiplier
+CapEx multiplier Tomato sauce,0.0,100.0,3,GridSearch.CapEx.Tomato sauce.capex_multiplier

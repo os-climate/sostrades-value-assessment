@@ -1,0 +1,34 @@
+selected_output,shortest_name,full_name
+false,Cashflow Summary Ratatouille,GridSearch.Business_Manufacturer.Manufacturer.Ratatouille.cashflow_infos
+false,Gather of Cashflow Summary Business_Manufacturer,GridSearch.Business_Manufacturer.cashflow_infos_gather
+false,OpEx Dict,GridSearch.opex_dict
+false,CapEx,GridSearch.capex_dict
+false,OpEx Total Tomato sauce,GridSearch.Tomato sauce.opex_total
+false,OpEx Unitary Tomato sauce,GridSearch.Tomato sauce.opex
+false,CapEx Tomato sauce,GridSearch.Tomato sauce.capex
+false,OpEx Total Ratatouille,GridSearch.Ratatouille.opex_total
+false,OpEx Unitary Ratatouille,GridSearch.Ratatouille.opex
+false,CapEx Ratatouille,GridSearch.Ratatouille.capex
+false,Gather of Detailed P&L Business_Manufacturer,GridSearch.Business_Manufacturer.pnl_product_gather
+false,Detailed P&L Business_Manufacturer,GridSearch.Business_Manufacturer.pnl_product
+false,Hypothesis Summary Gather Business_Manufacturer,GridSearch.Business_Manufacturer.hypothesis_summary_gather
+false,Hypothesis Summary Business_Manufacturer,GridSearch.Business_Manufacturer.hypothesis_summary
+false,Gather of Detailed Cashflow Business_Manufacturer,GridSearch.Business_Manufacturer.cashflow_product_gather
+false,Detailed Cashflow Business_Manufacturer,GridSearch.Business_Manufacturer.cashflow_product
+true,Cashflow Summary Business_Manufacturer,GridSearch.Business_Manufacturer.cashflow_infos
+false,Detailed Cashflow Ratatouille,GridSearch.Business_Manufacturer.Manufacturer.Ratatouille.cashflow_product
+false,Gather of Detailed P&L Manufacturer,GridSearch.Business_Manufacturer.Manufacturer.pnl_product_gather
+false,Detailed P&L Manufacturer,GridSearch.Business_Manufacturer.Manufacturer.pnl_product
+false,Hypothesis Summary Gather Manufacturer,GridSearch.Business_Manufacturer.Manufacturer.hypothesis_summary_gather
+false,Hypothesis Summary Manufacturer,GridSearch.Business_Manufacturer.Manufacturer.hypothesis_summary
+false,Gather of Detailed Cashflow Manufacturer,GridSearch.Business_Manufacturer.Manufacturer.cashflow_product_gather
+false,Detailed Cashflow Manufacturer,GridSearch.Business_Manufacturer.Manufacturer.cashflow_product
+false,Gather of Cashflow Summary Manufacturer,GridSearch.Business_Manufacturer.Manufacturer.cashflow_infos_gather
+false,Cashflow Summary Manufacturer,GridSearch.Business_Manufacturer.Manufacturer.cashflow_infos
+false,Detailed P&L Tomato sauce,GridSearch.Business_Manufacturer.Manufacturer.Tomato sauce.pnl_product
+false,Hypothesis Summary Tomato sauce,GridSearch.Business_Manufacturer.Manufacturer.Tomato sauce.hypothesis_summary
+false,Detailed Cashflow Tomato sauce,GridSearch.Business_Manufacturer.Manufacturer.Tomato sauce.cashflow_product
+false,Cashflow Summary Tomato sauce,GridSearch.Business_Manufacturer.Manufacturer.Tomato sauce.cashflow_infos
+false,Detailed P&L Ratatouille,GridSearch.Business_Manufacturer.Manufacturer.Ratatouille.pnl_product
+false,Hypothesis Summary Ratatouille,GridSearch.Business_Manufacturer.Manufacturer.Ratatouille.hypothesis_summary
+false,OpEx Total,GridSearch.opex_total_dict
