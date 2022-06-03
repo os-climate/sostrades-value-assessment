@@ -144,8 +144,8 @@ class ManufacturerValueBlockDiscipline(ValueBlockDiscipline):
     }
 
     DESC_OUT = {'cashflow_product': {'type': 'dataframe', 'unit': 'euros/year'},
-                'cashflow_infos': {'type': 'dict', 'unit': ''},
-                'hypothesis_summary': {'type': 'dict', 'unit': ''},
+                'cashflow_infos': {'type': 'dict', 'unit':  '€'},
+                'hypothesis_summary': {'type': 'dict', 'unit':  '€'},
                 'pnl_product': {'type': 'dataframe', 'unit': 'euros/year'}}
 
     def init_execution(self):
