@@ -155,6 +155,7 @@ class OPEXDiscipline(SoSDiscipline):
                 'launch_year+10 onwards': 5.0,
             },
             'type': 'dict',
+            'subtype_descriptor': {'dict': 'float'},
             'unit': '%',
             'visibility': SoSDiscipline.SHARED_VISIBILITY,
             'namespace': 'ns_opex_input_details',
