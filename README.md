@@ -23,3 +23,10 @@ This package is divided in 4 parts:
 - sos_processes: contains test processes built with disciplines from sos_wrapping
 - sos_wrapping: contains test disciplines covering value assessment functionalities
 - tests: contains tests on value assessment functionalities, based on sos_processes and sos_wrapping
+
+## License
+The sostrades-value-assessment source code is distributed under the Apache License Version 2.0.
+A copy of it can be found in the LICENSE file.
+
+The sostrades-value-assessment product depends on other software which have various licenses.
+The list of dependencies with their licenses is given in the CREDITS.rst file.
