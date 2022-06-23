@@ -45,12 +45,14 @@ class ValueAssessmentCharts(InstantiatedPlotlyNativeChart):
         if irr != 'NA':
             irr = round(cashflow_info_dict.get('irr', 0) * 100.0, 2)
 
-        annotation_upper_left = {f'IRR from {cashflow_info_dict.get("year_min_irr","")} to {cashflow_info_dict.get("year_max_irr","")}': '{} %'.format(irr),
+        annotation_upper_left = {f'IRR' : '{} %'.format(irr),
                                  'NPV': f'{format_currency_legend(round(npv, 2), currency)}'}
 
         annotation_upper_right = {
-            'Year break even': cashflow_info_dict.get('year_break_even', ''),
-            'Max Peak Exposure': f'{format_currency_legend(round(mpe, 2), currency)}'}
+            'Discounted Cashflow Breakeven Year ': cashflow_info_dict.get('year_break_even_discounted_cashflow', ''),
+            'Cashflow Breakeven Year': cashflow_info_dict.get('year_break_even_cashflow', ''),
+            # 'Max Peak Exposure': f'{format_currency_legend(round(mpe, 2), currency)}'}
+            'Peak Exposure': f'{format_currency_legend(round(mpe, 2), currency)}'}
         return annotation_upper_left, annotation_upper_right
 
     def generate_cashflow_chart(self, cf_df, name, annotation_upper_left, annotation_upper_right, currency, add_cumulated=False):
@@ -594,11 +596,10 @@ class ValueAssessmentCharts(InstantiatedPlotlyNativeChart):
             'index': {'label': 'Name', 'format': None},
             'scenario_id': {'label': 'Scenario', 'format': None},
             'irr': {'label': 'Internal Rate of Return (IRR)', 'format': 'percent'},
-            'year_min_irr': {'label': 'Year Min IRR', 'format': None},
-            'year_max_irr': {'label': 'Year Max IRR', 'format': None},
             'npv': {'label': 'Net Present Value (NPV)', 'format': 'currency'},
-            'year_break_even': {'label': 'Year Break Even', 'format': None},
-            'max_peak_exposure': {'label': 'Maximum Peak Exposure', 'format': 'currency'},
+            'year_break_even_cashflow': {'label': 'Cashflow Breakeven Year', 'format': None},
+            'year_break_even_discounted_cashflow': {'label': ' Discounted Cashflow Breakeven Year', 'format': None},
+            'peak_exposure': {'label': 'Peak Exposure', 'format': 'currency'},
             'total_free_cash_flow': {'label': 'Total Free Cashflow', 'format': 'currency'},
         }
 

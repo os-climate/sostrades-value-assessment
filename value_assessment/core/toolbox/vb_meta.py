@@ -115,12 +115,11 @@ class ValueBlock(object):
         cf_df = self.cf_df
 
         cf_info = {}
-
         # IRR on all years
         irr_ob = IRR(cf_df['cash_flow'])
         cf_info['irr'] = irr_ob.compute_irr()
-        cf_info['year_min_irr'] = cf_df['years'].values[0]
-        cf_info['year_max_irr'] = cf_df['years'].values[-1]
+        # cf_info['year_min_irr'] = cf_df['years'].values[0]
+        # cf_info['year_max_irr'] = cf_df['years'].values[-1]
 
         if cf_info['irr'] is np.nan:
             # if irr is nan return -99999
@@ -129,12 +128,20 @@ class ValueBlock(object):
         cf_info['npv'] = cf_df['cumulative_discounted_cf'].values[-1]
 
         if cf_df['years'][cf_df['cumulative_discounted_cf'] > 0].empty:
-            cf_info['year_break_even'] = int(cf_df['years'].values[-1])
+            cf_info['year_break_even_discounted_cashflow'] = 'NA'
         else:
-            cf_info['year_break_even'] = int(min(
-                cf_df['years'][cf_df['cumulative_discounted_cf'] > 0]))
+            cf_info['year_break_even_discounted_cashflow'] = int(
+                min(cf_df['years'][cf_df['cumulative_discounted_cf'] > 0])
+            )
+        if cf_df['years'][cf_df['cumulative_cash_flow'] > 0].empty:
+            cf_info['year_break_even_cashflow'] = 'NA'
+        else:
+            cf_info['year_break_even_cashflow'] = int(
+                min(cf_df['years'][cf_df['cumulative_cash_flow'] > 0])
+            )
 
-        cf_info['max_peak_exposure'] = min(cf_df['cumulative_cash_flow'])
+        # cf_info['max_peak_exposure'] = min(cf_df['cumulative_cash_flow'])
+        cf_info['peak_exposure'] = min(cf_df['cumulative_cash_flow'])
         cf_info['total_free_cash_flow'] = cf_df['cumulative_cash_flow'].values[-1]
 
         self.cf_infos = cf_info

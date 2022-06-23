@@ -49,16 +49,23 @@ class toolboxsumCF(toolboxsum):
         # IRR on all years
         irr_ob = IRR(cf_df['cash_flow'])
         cf_info['irr'] = irr_ob.compute_irr()
-        cf_info['year_min_irr'] = cf_df['years'].values[0]
-        cf_info['year_max_irr'] = cf_df['years'].values[-1]
+        # cf_info['year_min_irr'] = cf_df['years'].values[0]
+        # cf_info['year_max_irr'] = cf_df['years'].values[-1]
 
         cf_info['npv'] = cf_df['cumulative_discounted_cf'].values[-1]
         if cf_df['years'][cf_df['cumulative_discounted_cf'] > 0].empty:
-            cf_info['year_break_even'] = cf_df['years'].values[-1]
+            cf_info['year_break_even_discounted_cashflow'] = cf_df['years'].values[-1]
         else:
-            cf_info['year_break_even'] = min(
+            cf_info['year_break_even_discounted_cashflow'] = min(
                 cf_df['years'][cf_df['cumulative_discounted_cf'] > 0])
-        cf_info['max_peak_exposure'] = min(cf_df['cumulative_cash_flow'])
+            
+        if cf_df['years'][cf_df['cumulative_discounted_cf'] > 0].empty:
+            cf_info['year_break_even_cashflow'] = cf_df['years'].values[-1]
+        else:
+            cf_info['year_break_even_cashflow'] = min(
+                cf_df['years'][cf_df['cumulative_discounted_cf'] > 0])
+        # cf_info['max_peak_exposure'] = min(cf_df['cumulative_cash_flow'])
+        cf_info['peak_exposure'] = min(cf_df['cumulative_cash_flow'])
         cf_info['total_free_cash_flow'] = cf_df['cumulative_cash_flow'].values[-1]
 
         return cf_info
